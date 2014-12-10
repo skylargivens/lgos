@@ -1,20 +1,25 @@
 CC=gcc
-KERNEL=kernel-1200
-CFLAGS=-m32
+KERNEL=kernel-001
+CFLAGS=-m32 -ffreestanding -std=c99
 LDFLAGS=-m elf_i386
+BUILDDIR=build/
 
-all: kernel
+all: build_dir $(KERNEL)
 
-kernel: $(KERNEL)
+build_dir:
+	mkdir -p build
 
 kernel_asm.o: kernel.asm
-	nasm -f elf32 kernel.asm -o kernel_asm.o
+	nasm -f elf32 kernel.asm -o $(BUILDDIR)kernel_asm.o
 
 kernel_c.o: kernel.c
-	$(CC) (CFLAGS) -c kernel.c -o kernel_c.o
+	$(CC) $(CFLAGS) -c kernel.c -o $(BUILDDIR)kernel_c.o
 
-$(KERNEL): kernel_asm.o kernel_c.o link.ld
-	ld $(LDFLAGS) -T link.ld -o kernel-1200 kernel_asm.o kernel_c.o
+$(KERNEL): kernel_c.o kernel_asm.o link.ld
+	ld $(LDFLAGS) -T link.ld -o $(BUILDDIR)$(KERNEL) $(BUILDDIR)kernel_asm.o $(BUILDDIR)kernel_c.o
 
 clean:
-	rm -rf *.o kernel-1200
+	rm -rf build/
+
+run:
+	qemu-system-i386 -kernel $(BUILDDIR)$(KERNEL)
