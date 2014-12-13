@@ -1,3 +1,3 @@
 void kmain();
 void clearScreen();
-void puts(char *str);
+void fake_puts(char *str);
