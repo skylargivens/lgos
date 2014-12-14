@@ -1,5 +1,5 @@
 void cls();
 void putch(unsigned char c);
 void puts(char str[]);
-void scrollup();
-void initVideo();
+void scroll_up();
+void init_video();

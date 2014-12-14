@@ -71,19 +71,19 @@ void putch(unsigned char c) {
   }
 
   // Scroll the screen up if necessary
-  if (cursorY >= SCREEN_HEIGHT) scrollup();
+  if (cursorY >= SCREEN_HEIGHT) scroll_up();
   // TODO: Move hardware cursor to match software cursor
 }
 
 /**
- * Scroll the screen up by one row if necessary
+ * Scroll the screen up by one row
  */
-void scrollup() {
+void scroll_up() {
     cursorY = SCREEN_HEIGHT - 1;
     // TODO: Implement scrolling
 }
 
-void initVideo() {
+void init_video() {
   vidptr = (unsigned char*) 0xB8000;
   cls();
 }

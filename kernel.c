@@ -1,8 +1,15 @@
 #include "kernel.h"
 #include "screen.h"
+#include "interrupts.h"
 
 void kmain() {
-  initVideo();
-  puts("\b\bLorem\b ipsum dolor sit amet, consectetur adipisicing elit. Aut recusandae excepturi delectus, incidunt sunt a expedita maiores iste iusto non vel asperiores veniam eveniet voluptatibus inventore aliquam deleniti, laborum corporis\b\b\b\b\b\b\b\b\n\n");
-  puts("Done...");
+  init_video();
+  
+  puts("Setting up IDT...");
+  init_idt();
+  puts("Done\n");
+
+  puts("\nLooking Glass OS v0.0.1\n\n");
+  puts("Press a key...\n");
+  while(1);
 }
