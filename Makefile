@@ -15,8 +15,11 @@ kernel_asm.o: kernel.asm
 kernel_c.o: kernel.c
 	$(CC) $(CFLAGS) -c kernel.c -o $(BUILDDIR)kernel_c.o
 
-$(KERNEL): kernel_c.o kernel_asm.o link.ld
-	ld $(LDFLAGS) -T link.ld -o $(BUILDDIR)$(KERNEL) $(BUILDDIR)kernel_asm.o $(BUILDDIR)kernel_c.o
+screen.o: screen.c
+	$(CC) $(CFLAGS) -c screen.c -o $(BUILDDIR)screen.o
+
+$(KERNEL): kernel_c.o kernel_asm.o link.ld screen.o
+	ld $(LDFLAGS) -T link.ld -o $(BUILDDIR)$(KERNEL) $(BUILDDIR)kernel_asm.o $(BUILDDIR)kernel_c.o $(BUILDDIR)screen.o
 
 clean:
 	rm -rf build/

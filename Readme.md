@@ -27,6 +27,5 @@ You should see the welcome message displayed in the QEMU window.
 For the more adventurous, try booting your kernel with [GRUB](http://wiki.osdev.org/GRUB)
 
 ## Todo
-- Move screen functions to their own file
 - Move hardware cursor
 - Handle keyboard input
