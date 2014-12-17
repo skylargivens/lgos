@@ -84,7 +84,17 @@ void putch(unsigned char c) {
  * Scroll the screen up by one row
  */
 void scroll_up() {
-    // TODO: Implement scrolling
+    int last_row_start = (SCREEN_WIDTH * (SCREEN_HEIGHT - 1) * 2);
+
+    // Shift characters and their attributes up a single row
+    for (int pos = SCREEN_WIDTH; pos < (SCREEN_WIDTH * SCREEN_HEIGHT * 2); pos++) {
+        vidptr[pos - SCREEN_WIDTH * 2] = vidptr[pos];
+    }
+
+    // Clear the last row
+    for (int pos = last_row_start; pos < (SCREEN_WIDTH * SCREEN_HEIGHT * 2); pos += 2) {
+        vidptr[pos] = ' ';
+    }
 }
 
 /**

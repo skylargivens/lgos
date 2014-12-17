@@ -17,7 +17,7 @@ To build, simply run make from within the project directory:
 make
 ```
 If all goes well, there should be a file named kernel-001 in the /build directory.
-## Running your OS
+## Running the OS
 With qemu installed, run:
 ```
 make run
@@ -26,6 +26,7 @@ You should see the welcome message displayed in the QEMU window.
 
 For the more adventurous, try booting your kernel with [GRUB](http://wiki.osdev.org/GRUB)
 
-## Todo
-- Move hardware cursor
-- Handle keyboard input
+## Goals
+- Build and run a basic LISP within the OS.
+- Get [Duktape JavaScript Engine](http://duktape.org/) running within the OS.
+
