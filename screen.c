@@ -1,4 +1,5 @@
 #include "screen.h"
+#include "io.h"
 
 unsigned char *vidptr; // Video memory lives here
 char attr = 0x0F;
@@ -71,16 +72,35 @@ void putch(unsigned char c) {
   }
 
   // Scroll the screen up if necessary
-  if (cursorY >= SCREEN_HEIGHT) scroll_up();
-  // TODO: Move hardware cursor to match software cursor
+  if (cursorY >= SCREEN_HEIGHT) {
+      cursorY = SCREEN_HEIGHT - 1;
+      scroll_up();
+  }
+
+  move_hw_cursor(cursorX, cursorY);
 }
 
 /**
  * Scroll the screen up by one row
  */
 void scroll_up() {
-    cursorY = SCREEN_HEIGHT - 1;
     // TODO: Implement scrolling
+}
+
+/**
+ * Move hardware cursor to x, y coords
+ */
+void move_hw_cursor(int x, int y) {
+    // @STODO - Move hardware cursor to software cursor position
+    unsigned short position = (y * 80) + x;
+
+    // High byte
+    write_port(0x3D4, 0x0F);
+    write_port(0x3D5, (unsigned char) (position & 0xFF));
+    
+    // Low byte
+    write_port(0x3D4, 0x0E);
+    write_port(0x3D5, (unsigned char) ((position >> 8) & 0xFF));
 }
 
 void init_video() {
