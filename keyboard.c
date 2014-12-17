@@ -28,6 +28,5 @@ void keyboard_handler() {
         putch(keyboard_map[key_code]);
     }
 
-  return;
+    return;
 }
-

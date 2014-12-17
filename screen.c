@@ -15,22 +15,22 @@ int cursorY = 0;
  * Clear the screen
  */
 void cls() {
-  for (int i = 0; i < (SCREEN_WIDTH * SCREEN_HEIGHT * 2); i += 2) {
-    vidptr[i] = ' ';
-    vidptr[i + 1] = attr;
-  }
+    for (int i = 0; i < (SCREEN_WIDTH * SCREEN_HEIGHT * 2); i += 2) {
+        vidptr[i] = ' ';
+        vidptr[i + 1] = attr;
+    }
 }
 
 /**
  * Print a string to the screen
  */
 void puts(char str[]) {
-  int i = 0;
+    int i = 0;
 
-  while(str[i] != '\0') {
-    putch(str[i]);
-    i++;
-  }
+    while(str[i] != '\0') {
+        putch(str[i]);
+        i++;
+    }
 }
 
 /**
@@ -39,45 +39,45 @@ void puts(char str[]) {
  * TODO: Handle tab character
  */
 void putch(unsigned char c) {
-  unsigned int location;
+    unsigned int location;
 
-  // Backspace
-  if (c == '\b') {
-    if (cursorX != 0) cursorX--;
-  }
+    // Backspace
+    if (c == '\b') {
+        if (cursorX != 0) cursorX--;
+    }
 
-  // Carriage return
-  else if (c == '\r') {
-    cursorX = 0;
-  }
+    // Carriage return
+    else if (c == '\r') {
+        cursorX = 0;
+    }
 
   // Newline
-  else if (c == '\n') {
-    cursorX = 0;
-    cursorY++;
-  }
+    else if (c == '\n') {
+        cursorX = 0;
+        cursorY++;
+    }
 
-  // Non-special characters
-  else if (c >= ' ') {
-    location = ((cursorY * SCREEN_WIDTH) + cursorX) * 2;
-    vidptr[location] = c;
-    vidptr[location + 1] = attr;
-    cursorX++;
-  }
+    // Non-special characters
+    else if (c >= ' ') {
+        location = ((cursorY * SCREEN_WIDTH) + cursorX) * 2;
+        vidptr[location] = c;
+        vidptr[location + 1] = attr;
+        cursorX++;
+    }
 
   // Move cursor to next line if it's beyond the right edge of the screen
-  if (cursorX >= SCREEN_WIDTH) {
-    cursorX = 0;
-    cursorY++;
-  }
+    if (cursorX >= SCREEN_WIDTH) {
+        cursorX = 0;
+        cursorY++;
+    }
 
   // Scroll the screen up if necessary
-  if (cursorY >= SCREEN_HEIGHT) {
-      cursorY = SCREEN_HEIGHT - 1;
-      scroll_up();
-  }
+    if (cursorY >= SCREEN_HEIGHT) {
+        cursorY = SCREEN_HEIGHT - 1;
+        scroll_up();
+    }
 
-  move_hw_cursor(cursorX, cursorY);
+    move_hw_cursor(cursorX, cursorY);
 }
 
 /**
@@ -114,6 +114,6 @@ void move_hw_cursor(int x, int y) {
 }
 
 void init_video() {
-  vidptr = (unsigned char*) 0xB8000;
-  cls();
+    vidptr = (unsigned char*) 0xB8000;
+    cls();
 }
